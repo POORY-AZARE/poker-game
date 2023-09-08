@@ -1,0 +1,23 @@
+import socket
+import threading
+
+# تنظیمات سرور
+HOST = '0.0.0.0'
+PORT = 12345
+
+# لیست اتاق‌ها
+rooms = {}
+
+# تابع برای مدیریت اتاق‌ها
+def manage_room(client_socket, room_name):
+    while True:
+        try:
+            data = client_socket.recv(1024).decode('utf-8')
+            if not data:
+                break
+            # ارسال پیام به تمام اعضای اتاق
+            for member in rooms[room_name]:
+                member.send(data.encode('utf-8'))
+        except:
+            break
+
