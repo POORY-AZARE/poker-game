@@ -21,3 +21,40 @@ def manage_room(client_socket, room_name):
         except:
             break
 
+import socket
+import threading
+
+# تنظیمات سرور
+HOST = '0.0.0.0'
+PORT = 12345
+
+# لیست اتاق‌ها
+rooms = {}
+
+# تابع برای مدیریت اتاق‌ها
+def manage_room(client_socket, room_name):
+    while True:
+        try:
+            data = client_socket.recv(1024).decode('utf-8')
+            if not data:
+                break
+            # ارسال پیام به تمام اعضای اتاق
+            for member in rooms[room_name]:
+                member.send(data.encode('utf-8'))
+        except:
+            break
+
+# تابع برای مدیریت اتصال کاربران به سرور
+def handle_client(client_socket):
+    while True:
+        try:
+            room_name = client_socket.recv(1024).decode('utf-8')
+            # چک کردن اگر اتاق وجود نداشته باشد، آن را ایجاد کنید
+            if room_name not in rooms:
+                rooms[room_name] = []
+            rooms[room_name].append(client_socket)
+            # شروع مدیریت اتاق
+            manage_room(client_socket, room_name)
+        except:
+            break
+
