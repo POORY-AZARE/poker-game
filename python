@@ -24,11 +24,11 @@ def manage_room(client_socket, room_name):
 import socket
 import threading
 
-# تنظیمات سرور
+
 HOST = '0.0.0.0'
 PORT = 12345
 
-# لیست اتاق‌ها
+
 rooms = {}
 
 # تابع برای مدیریت اتاق‌ها
