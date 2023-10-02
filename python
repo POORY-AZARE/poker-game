@@ -57,7 +57,7 @@ def handle_client(client_socket):
         except:
             break
 
-# شروع سرور
+# Start the server
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 server.listen(5)
