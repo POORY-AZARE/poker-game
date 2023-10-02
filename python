@@ -43,8 +43,7 @@ def manage_room(client_socket, room_name):
                 member.send(data.encode('utf-8'))
         except:
             break
-
-# تابع برای مدیریت اتصال کاربران به سرور
+# Function to manage the connection of users to the server
 def handle_client(client_socket):
     while True:
         try:
